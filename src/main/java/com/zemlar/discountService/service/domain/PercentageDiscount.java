@@ -17,14 +17,20 @@ public class PercentageDiscount implements Discount {
     }
 
     @Override
-    public BigDecimal calculateDiscount(BigDecimal basePrice) {
+    public BigDecimal calculateDiscount(BigDecimal basePrice, int productAmount) {
+
+        if (productAmount <= 0) {
+            throw new IllegalArgumentException("Product amount should be grater than 0");
+        }
 
         BigDecimal discount = Optional.ofNullable(basePrice)
                 .map(price -> price.divide(divider, scale, RoundingMode.FLOOR))
                 .map(price -> price.multiply(discountValue))
+                .map(price -> price.multiply(BigDecimal.valueOf(productAmount)))
                 .orElseThrow(() -> new IllegalArgumentException("Base price can't be null"));
 
-
-        return basePrice.subtract(discount);
+        return basePrice
+                .multiply(BigDecimal.valueOf(productAmount))
+                .subtract(discount);
     }
 }
