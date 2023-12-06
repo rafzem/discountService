@@ -15,7 +15,7 @@ public interface ProductMapper {
     Product toDomainObject(ProductEntity entity);
 
     @Mappings({
-            @Mapping(target = "price",source = "basePrice")
+            @Mapping(target = "price", source = "basePrice")
     })
     ProductDto toDto(Product product);
 }

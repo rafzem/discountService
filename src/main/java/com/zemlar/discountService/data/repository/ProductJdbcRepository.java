@@ -6,8 +6,11 @@ import com.zemlar.discountService.service.domain.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.naming.Name;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -21,11 +24,13 @@ public class ProductJdbcRepository implements ProductRepository {
 
     public static final String GET_ALL_PRODUCTS = "SELECT * from PRODUCT";
 
-    private final JdbcTemplate jdbcTemplate;
+    public static final String GET_PRODUCT_BY_UUID = "SELECT * from PRODUCT where uuid =:productUUID";
+
+    private final NamedParameterJdbcTemplate jdbcTemplate;
     private final ProductMapper mapper;
 
     public ProductJdbcRepository(JdbcTemplate jdbcTemplate, ProductMapper mapper) {
-        this.jdbcTemplate = jdbcTemplate;
+        this.jdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
         this.mapper = mapper;
     }
 
@@ -39,6 +44,15 @@ public class ProductJdbcRepository implements ProductRepository {
                 .flatMap(Optional::stream)
                 .map(mapper::toDomainObject)
                 .toList();
+    }
+
+    @Override
+    public Optional<Product> getProductByUUID(UUID uuid) {
+        MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+        namedParameters.addValue("productUUID", uuid);
+        return jdbcTemplate.queryForObject(
+                        GET_PRODUCT_BY_UUID, namedParameters, (rs, i) -> mapToEntity(rs))
+                .map(mapper::toDomainObject);
     }
 
     private Optional<ProductEntity> mapToEntity(ResultSet resultSet) {
