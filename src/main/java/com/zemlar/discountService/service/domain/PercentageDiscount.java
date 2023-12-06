@@ -23,14 +23,11 @@ public class PercentageDiscount implements Discount {
             throw new IllegalArgumentException("Product amount should be grater than 0");
         }
 
-        BigDecimal discount = Optional.ofNullable(basePrice)
-                .map(price -> price.divide(divider, scale, RoundingMode.FLOOR))
-                .map(price -> price.multiply(discountValue))
-                .map(price -> price.multiply(BigDecimal.valueOf(productAmount)))
-                .orElseThrow(() -> new IllegalArgumentException("Base price can't be null"));
+        var discount = divider.subtract(discountValue).divide(divider, scale, RoundingMode.FLOOR);
 
-        return basePrice
-                .multiply(BigDecimal.valueOf(productAmount))
-                .subtract(discount);
+        return Optional.ofNullable(basePrice)
+                .map(price -> price.multiply(BigDecimal.valueOf(productAmount)))
+                .map(price -> price.multiply(discount))
+                .orElseThrow(() -> new IllegalArgumentException("Base price can't be null"));
     }
 }
