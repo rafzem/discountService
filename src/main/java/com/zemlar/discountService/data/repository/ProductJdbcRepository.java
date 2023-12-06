@@ -17,7 +17,7 @@ import java.util.UUID;
 @Repository
 public class ProductJdbcRepository implements ProductRepository {
 
-    private static Logger logger = LoggerFactory.getLogger(ProductJdbcRepository.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProductJdbcRepository.class);
 
     public static final String GET_ALL_PRODUCTS = "SELECT * from PRODUCT";
 
