@@ -1,6 +1,7 @@
-package com.zemlar.discountService.service.domain;
+package com.zemlar.discountService.service;
 
 import com.zemlar.discountService.data.repository.ProductRepository;
+import com.zemlar.discountService.service.domain.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

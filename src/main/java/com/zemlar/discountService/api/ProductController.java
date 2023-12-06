@@ -2,7 +2,7 @@ package com.zemlar.discountService.api;
 
 import com.zemlar.discountService.api.dto.ProductDto;
 import com.zemlar.discountService.mapper.ProductMapper;
-import com.zemlar.discountService.service.domain.ProductService;
+import com.zemlar.discountService.service.ProductService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
