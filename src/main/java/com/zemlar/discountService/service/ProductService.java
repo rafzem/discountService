@@ -5,6 +5,8 @@ import com.zemlar.discountService.service.domain.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ProductService {
@@ -18,4 +20,10 @@ public class ProductService {
     public List<Product> getProducts() {
         return productRepository.getProducts();
     }
+
+    public Optional<Product> getProduct(UUID uuid)
+    {
+        return productRepository.getProductByUUID(uuid);
+    }
+
 }
