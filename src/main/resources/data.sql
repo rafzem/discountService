@@ -24,3 +24,6 @@ insert into PRODUCT_DISCOUNT_GROUP_ASSOCIATION (id, product_id,discount_group_id
 insert into PRODUCT_DISCOUNT_GROUP_ASSOCIATION (id, product_id,discount_group_id) values (NEXT VALUE FOR PRODUCT_DISCOUNT_GROUP_ASSOCIATION_SEQ, 8,2);
 insert into PRODUCT_DISCOUNT_GROUP_ASSOCIATION (id, product_id,discount_group_id) values (NEXT VALUE FOR PRODUCT_DISCOUNT_GROUP_ASSOCIATION_SEQ, 9,3);
 insert into PRODUCT_DISCOUNT_GROUP_ASSOCIATION (id, product_id,discount_group_id) values (NEXT VALUE FOR PRODUCT_DISCOUNT_GROUP_ASSOCIATION_SEQ, 10,3);
+
+
+insert into DISCOUNT( id,discount_group_id,type,discount_value) values(NEXT VALUE FOR DISCOUNT_SEQ,4,'percentage',5);

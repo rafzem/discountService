@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Repository
@@ -24,8 +25,9 @@ public class DiscountJdbcRepository implements DiscountRepository {
     public static final String GET_DISCOUNTS_BY_PRODUCT =
             """
                     SELECT d.* FROM DISCOUNT d
-                    LEFT JOIN PRODUCT_DISCOUNT_GROUP_ASSOCIATION pdga on d.discount_group_id = pdga.discount_group_id\s
-                    where pdga.product_id =:productId\s
+                    LEFT JOIN PRODUCT_DISCOUNT_GROUP_ASSOCIATION pdga on d.discount_group_id = pdga.discount_group_id
+                    LEFT JOIN PRODUCT p on pdga.product_id = p.id\s
+                    where p.uuid =:uuid\s
                          """;
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -37,10 +39,10 @@ public class DiscountJdbcRepository implements DiscountRepository {
     }
 
     @Override
-    public List<Discount> getDiscountsForProduct(Long productId) {
+    public List<Discount> getDiscountsForProduct(UUID productUUID) {
 
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
-        namedParameters.addValue("productId", 3);
+        namedParameters.addValue("uuid", productUUID);
         return jdbcTemplate.query(
                         GET_DISCOUNTS_BY_PRODUCT, namedParameters, (rs, i) -> mapToEntity(rs))
                 .stream()

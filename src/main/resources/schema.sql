@@ -18,11 +18,11 @@ CREATE TABLE DISCOUNT(
     id  BIGINT  PRIMARY KEY NOT NULL,
     discount_group_id BIGINT,
     type ENUM('count','percentage') NOT NULL,
-    discount_value NUMERIC(2,2),
+    discount_value NUMERIC(100,2),
     min_product_amount INT,
-    base_discount NUMERIC(2,2),
-    max_discount NUMERIC(2,2),
-    discount_step NUMERIC(2,2),
+    base_discount NUMERIC(100,2),
+    max_discount NUMERIC(100,2),
+    discount_step NUMERIC(100,2),
     foreign key (discount_group_id) references DISCOUNT_GROUP(id)
 );
 
