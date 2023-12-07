@@ -26,4 +26,10 @@ insert into PRODUCT_DISCOUNT_GROUP_ASSOCIATION (id, product_id,discount_group_id
 insert into PRODUCT_DISCOUNT_GROUP_ASSOCIATION (id, product_id,discount_group_id) values (NEXT VALUE FOR PRODUCT_DISCOUNT_GROUP_ASSOCIATION_SEQ, 10,3);
 
 
-insert into DISCOUNT( id,discount_group_id,type,discount_value) values(NEXT VALUE FOR DISCOUNT_SEQ,4,'percentage',5);
+insert into DISCOUNT( id,discount_group_id,type,discount_value) values(NEXT VALUE FOR DISCOUNT_SEQ,4,'percentage',5);  -- 5% for cars
+insert into DISCOUNT( id,discount_group_id,type,discount_value) values(NEXT VALUE FOR DISCOUNT_SEQ,1,'percentage',10); -- 10% for clothes
+insert into DISCOUNT( id,discount_group_id,type,min_product_amount,base_discount,max_discount,discount_step) values(NEXT VALUE FOR DISCOUNT_SEQ,1,'count',3,5,40,5); -- starting from 3 products (5%) + 5% each next until 40%
+insert into DISCOUNT( id,discount_group_id,type,discount_value) values(NEXT VALUE FOR DISCOUNT_SEQ,2,'percentage',7); -- 7% for christmas
+insert into DISCOUNT( id,discount_group_id,type,min_product_amount,base_discount,max_discount,discount_step) values(NEXT VALUE FOR DISCOUNT_SEQ,2,'count',5,2,50,5); -- starting from 5 products (2%) + 5% each next until 50%
+insert into DISCOUNT( id,discount_group_id,type,discount_value) values(NEXT VALUE FOR DISCOUNT_SEQ,3,'percentage',5); -- 5% for sweets
+insert into DISCOUNT( id,discount_group_id,type,min_product_amount,base_discount,max_discount,discount_step) values(NEXT VALUE FOR DISCOUNT_SEQ,3,'count',5,5,40,5); -- starting from 5 products (5%) + 5% each next until 40%

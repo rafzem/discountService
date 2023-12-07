@@ -53,7 +53,7 @@ class AmountBasedDiscountTest {
                 .calculateDiscount(BigDecimal.TEN, 2);
 
         //then
-        assertThat(productPrice).isEqualTo(BigDecimal.TEN);
+        assertThat(productPrice).isEqualTo(BigDecimal.valueOf(20));
 
     }
 

@@ -28,7 +28,7 @@ public class AmountBasedDiscount implements Discount {
 
         }
         if (productAmount < minimalProductAmount) {
-            return basePrice;
+            return basePrice.multiply(BigDecimal.valueOf(productAmount));
         } else {
             var discountValue = calculateDiscountValue(productAmount);
             return new PercentageDiscount(discountValue).calculateDiscount(basePrice, productAmount);
