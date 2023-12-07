@@ -1,6 +1,8 @@
 package com.zemlar.discountService.api;
 
+import com.zemlar.discountService.api.dto.OfferDto;
 import com.zemlar.discountService.api.dto.ProductDto;
+import com.zemlar.discountService.mapper.OfferDtoMapper;
 import com.zemlar.discountService.mapper.ProductMapper;
 import com.zemlar.discountService.service.DiscountService;
 import com.zemlar.discountService.service.ProductService;
@@ -23,11 +25,13 @@ public class ProductController {
 
     private final DiscountService discountService;
 
-    public ProductController(ProductService productService, ProductMapper productMapper, DiscountService discountService) {
+    private final OfferDtoMapper offerDtoMapper;
+
+    public ProductController(ProductService productService, ProductMapper productMapper, DiscountService discountService, OfferDtoMapper offerDtoMapper) {
         this.productService = productService;
         this.productMapper = productMapper;
         this.discountService = discountService;
-
+        this.offerDtoMapper = offerDtoMapper;
     }
 
     @GetMapping("/products")
@@ -38,11 +42,11 @@ public class ProductController {
     }
 
     @GetMapping("/products/{productId}/discount")
-    public ProductDto getProductPrices(@PathVariable("productId") UUID productId,
-                                       @RequestParam(value = "amount", defaultValue = "1") int amount) {
+    public OfferDto getProductPrices(@PathVariable("productId") UUID productId,
+                                     @RequestParam(value = "amount", defaultValue = "1") int amount) {
 
         Product product = productService.getProduct(productId).orElseThrow();
-        return productMapper.toDto(discountService.calculateDiscountForProduct(product, amount));
+        return offerDtoMapper.toDto(discountService.calculateDiscountForProduct(product, amount));
     }
 
 }
