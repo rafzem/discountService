@@ -69,7 +69,7 @@ public class DiscountJdbcRepository implements DiscountRepository {
                     new DiscountEntity(
                             rs.getLong("id"),
                             rs.getLong("discount_group_id"),
-                            DiscountEntity.DiscountType.valueOf(rs.getString("type")),
+                            DiscountEntity.DiscountType.getByType(rs.getString("type")),
                             rs.getBigDecimal("discount_value"),
                             rs.getInt("min_product_amount"),
                             rs.getBigDecimal("base_discount"),

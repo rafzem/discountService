@@ -12,6 +12,7 @@ public class PercentageDiscount implements Discount {
 
     public PercentageDiscount(BigDecimal discountValue) {
         this.discountValue = Optional.ofNullable(discountValue)
+                .map(BigDecimal::abs)
                 .orElseThrow(() -> new IllegalStateException("Discount value must not be null"));
     }
 
