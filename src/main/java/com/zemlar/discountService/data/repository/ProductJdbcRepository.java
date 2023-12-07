@@ -5,6 +5,7 @@ import com.zemlar.discountService.mapper.ProductMapper;
 import com.zemlar.discountService.service.domain.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -50,9 +51,13 @@ public class ProductJdbcRepository implements ProductRepository {
     public Optional<Product> getProductByUUID(UUID uuid) {
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         namedParameters.addValue("productUUID", uuid);
-        return jdbcTemplate.queryForObject(
-                        GET_PRODUCT_BY_UUID, namedParameters, (rs, i) -> mapToEntity(rs))
-                .map(mapper::toDomainObject);
+        try {
+            return jdbcTemplate.queryForObject(
+                            GET_PRODUCT_BY_UUID, namedParameters, (rs, i) -> mapToEntity(rs))
+                    .map(mapper::toDomainObject);
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
     }
 
     private Optional<ProductEntity> mapToEntity(ResultSet resultSet) {
