@@ -13,7 +13,8 @@ public interface OfferDtoMapper {
     @Mappings({
             @Mapping(target = "uuid", source = "offer.product.uuid"),
             @Mapping(target = "name", source = "offer.product.name"),
-            @Mapping(target = "basePrice", source = "offer.product.basePrice"),
+            @Mapping(target = "basePrice",
+                    expression = "java(offer.product().basePrice().multiply(BigDecimal.valueOf(offer.offerAmount())))"),
     })
     OfferDto toDto(Offer offer);
 
